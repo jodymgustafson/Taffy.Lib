@@ -329,7 +329,10 @@ declare namespace Taffy {
     }
 }
 declare namespace Taffy {
-    namespace Storage {
+    const version = "1.1";
+}
+declare namespace Taffy {
+    namespace LocalStorage {
         /** Used to determine if local storage available */
         function isAvailable(): boolean;
     }
@@ -382,8 +385,6 @@ declare namespace Taffy {
     }
 }
 declare namespace Taffy {
-    /** Used to determine if local storage available */
-    function isAvailable(): boolean;
     class AppStorageAsync implements IAppStorageAsync {
         private _prefix;
         /** Used to determine if local storage available */
@@ -399,14 +400,14 @@ declare namespace Taffy {
             * @param callback Optional function to call when saved
             * @param replacer Optional replacer function to use when stringifying the value
             */
-        setValue(key: string, val: any, callback?: () => any, replacer?: (key: string, value: any) => any): AppStorageAsync;
+        setValue(key: string, val: any, callback?: () => any, replacer?: (key: string, value: any) => any): IAppStorageAsync;
         /**
             * Gets the value with the specified key from localStorage
             * @key Key
             * @callback Fuction to call with the value. Value will be null if not found.
             * @reviver Optional reviver to use when parsing the JSON
             */
-        getValue<T>(key: string, callback: (data: T) => any, reviver?: (key: any, value: any) => any): AppStorageAsync;
+        getValue<T>(key: string, callback: (data: T) => any, reviver?: (key: any, value: any) => any): IAppStorageAsync;
         /**
             * Sets the value with the specified key into localStorage.
             * Note: For localstorage this is the same as calling setValue without a replacer.
@@ -415,32 +416,32 @@ declare namespace Taffy {
             * @param callback Optional function to call when saved
             * @param replacer Optional replacer function to use when stringifying the value
             */
-        setItem(key: string, val: any, callback?: () => any): AppStorageAsync;
+        setItem(key: string, val: any, callback?: () => any): IAppStorageAsync;
         /**
             * Gets the raw value of an item from localStorage without parsing it.
             * Note: For localstorage this is the same as calling getValue without a reviver.
             * @callback Fuction to call with the item. Value will be null if not found.
             */
-        getItem<T>(key: string, callback: (data: T) => any): AppStorageAsync;
+        getItem<T>(key: string, callback: (data: T) => any): IAppStorageAsync;
         /** Removes the value with the specified key */
-        remove(key: string, callback?: () => any): AppStorageAsync;
+        remove(key: string, callback?: () => any): IAppStorageAsync;
         /** Removes all items associated with the app */
-        removeAll(callback?: () => any): AppStorageAsync;
+        removeAll(callback?: () => any): IAppStorageAsync;
         /**
             * Determines if the specified key has a value in localStorage
             * @callback Fuction to call with the result.
             */
-        contains(key: string, callback: (result: boolean) => any): AppStorageAsync;
+        contains(key: string, callback: (result: boolean) => any): IAppStorageAsync;
         /**
             * Gets the keys from localStorage for the application that optionally match a filter
             * @param filter: (Optional) A function that returns true if the key should be included in the result
             * @callback Fuction to call with the list of keys. If none are found the list will be empty (not null).
             */
-        getKeys(callback: (keys: string[]) => any, filter?: (key: string) => boolean): AppStorageAsync;
+        getKeys(callback: (keys: string[]) => any, filter?: (key: string) => boolean): IAppStorageAsync;
         private getRawItem(key);
         private isAppKey(key);
         /** Adds a storage event handler */
-        addStorageListener(callback: (evt: IStorageEventAsync) => any): AppStorageAsync;
+        addStorageListener(callback: (evt: IStorageEventAsync) => any): IAppStorageAsync;
     }
 }
 declare namespace Taffy {

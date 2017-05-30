@@ -2,13 +2,6 @@
 {
     "use strict";
 
-    var _isAvailable = Boolean(("localStorage" in window) && window["localStorage"]);
-    /** Used to determine if local storage available */
-    export function isAvailable(): boolean
-    {
-        return _isAvailable;
-    }
-
     export class AppStorageAsync implements IAppStorageAsync
     {
         private _prefix = "";
@@ -16,7 +9,7 @@
         /** Used to determine if local storage available */
         public static get isAvailable(): boolean
         {
-            return isAvailable();
+            return LocalStorage.isAvailable();
         }
 
         /** @param appName Name of the application(optional) */
@@ -35,7 +28,7 @@
             * @param callback Optional function to call when saved
             * @param replacer Optional replacer function to use when stringifying the value
             */
-        public setValue(key: string, val: any, callback?: () => any, replacer?: (key: string, value: any) => any): AppStorageAsync
+        public setValue(key: string, val: any, callback?: () => any, replacer?: (key: string, value: any) => any): IAppStorageAsync
         {
             if (AppStorageAsync.isAvailable)
             {
@@ -51,7 +44,7 @@
             * @callback Fuction to call with the value. Value will be null if not found.
             * @reviver Optional reviver to use when parsing the JSON 
             */
-        public getValue<T>(key: string, callback: (data: T) => any, reviver?: (key: any, value: any) => any): AppStorageAsync
+        public getValue<T>(key: string, callback: (data: T) => any, reviver?: (key: any, value: any) => any): IAppStorageAsync
         {
             if (AppStorageAsync.isAvailable)
             {
@@ -73,7 +66,7 @@
             * @param callback Optional function to call when saved
             * @param replacer Optional replacer function to use when stringifying the value
             */
-        public setItem(key: string, val: any, callback?: () => any): AppStorageAsync
+        public setItem(key: string, val: any, callback?: () => any): IAppStorageAsync
         {
             return this.setValue(key, val, callback);
         }
@@ -83,13 +76,13 @@
             * Note: For localstorage this is the same as calling getValue without a reviver.
             * @callback Fuction to call with the item. Value will be null if not found.
             */
-        public getItem<T>(key: string, callback: (data: T) => any): AppStorageAsync
+        public getItem<T>(key: string, callback: (data: T) => any): IAppStorageAsync
         {
             return this.getValue<T>(key, callback);
         }
 
         /** Removes the value with the specified key */
-        public remove(key: string, callback?: () => any): AppStorageAsync
+        public remove(key: string, callback?: () => any): IAppStorageAsync
         {
             if (AppStorageAsync.isAvailable)
             {
@@ -100,7 +93,7 @@
         }
 
         /** Removes all items associated with the app */
-        public removeAll(callback?: () => any): AppStorageAsync
+        public removeAll(callback?: () => any): IAppStorageAsync
         {
             this.getKeys((keys: string[]) =>
             {
@@ -117,7 +110,7 @@
             * Determines if the specified key has a value in localStorage
             * @callback Fuction to call with the result.
             */
-        public contains(key: string, callback: (result: boolean) => any): AppStorageAsync
+        public contains(key: string, callback: (result: boolean) => any): IAppStorageAsync
         {
             var item: string;
             if (AppStorageAsync.isAvailable)
@@ -133,7 +126,7 @@
             * @param filter: (Optional) A function that returns true if the key should be included in the result
             * @callback Fuction to call with the list of keys. If none are found the list will be empty (not null).
             */
-        public getKeys(callback: (keys: string[]) => any, filter?: (key: string) => boolean): AppStorageAsync
+        public getKeys(callback: (keys: string[]) => any, filter?: (key: string) => boolean): IAppStorageAsync
         {
             var keys: string[] = [];
             if (AppStorageAsync.isAvailable)
@@ -172,7 +165,7 @@
         }
 
         /** Adds a storage event handler */
-        public addStorageListener(callback: (evt: IStorageEventAsync) => any): AppStorageAsync
+        public addStorageListener(callback: (evt: IStorageEventAsync) => any): IAppStorageAsync
         {
             addEventListener("storage", (ev: StorageEvent) =>
             {

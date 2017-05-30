@@ -6,7 +6,10 @@
         "declaration": true,
         "outFile": "dist/taffy.js"
     },
-        "include": [
+    "include": [
         "src/**/*"
+    ],
+    "exclude": [
+        "src/chrome/*"
     ]
 }

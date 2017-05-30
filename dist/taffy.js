@@ -619,16 +619,20 @@ var Taffy;
 })(Taffy || (Taffy = {}));
 var Taffy;
 (function (Taffy) {
+    Taffy.version = "1.1";
+})(Taffy || (Taffy = {}));
+var Taffy;
+(function (Taffy) {
     "use strict";
-    var Storage;
-    (function (Storage) {
+    var LocalStorage;
+    (function (LocalStorage) {
         var _isAvailable = Boolean(("localStorage" in window) && window["localStorage"]);
         /** Used to determine if local storage available */
         function isAvailable() {
             return _isAvailable;
         }
-        Storage.isAvailable = isAvailable;
-    })(Storage = Taffy.Storage || (Taffy.Storage = {}));
+        LocalStorage.isAvailable = isAvailable;
+    })(LocalStorage = Taffy.LocalStorage || (Taffy.LocalStorage = {}));
     /**
     * Wrapper for localstorage that optionally prefixes all keys with the app name
     */
@@ -641,7 +645,7 @@ var Taffy;
         Object.defineProperty(AppStorage, "isAvailable", {
             /** Used to determine if local storage available */
             get: function () {
-                return Storage.isAvailable();
+                return LocalStorage.isAvailable();
             },
             enumerable: true,
             configurable: true
@@ -744,12 +748,6 @@ var Taffy;
 var Taffy;
 (function (Taffy) {
     "use strict";
-    var _isAvailable = Boolean(("localStorage" in window) && window["localStorage"]);
-    /** Used to determine if local storage available */
-    function isAvailable() {
-        return _isAvailable;
-    }
-    Taffy.isAvailable = isAvailable;
     var AppStorageAsync = (function () {
         /** @param appName Name of the application(optional) */
         function AppStorageAsync(appName) {
@@ -759,7 +757,7 @@ var Taffy;
         Object.defineProperty(AppStorageAsync, "isAvailable", {
             /** Used to determine if local storage available */
             get: function () {
-                return isAvailable();
+                return Taffy.LocalStorage.isAvailable();
             },
             enumerable: true,
             configurable: true

@@ -2,7 +2,7 @@
 {
     "use strict";
 
-    export namespace Storage
+    export namespace LocalStorage
     {
         var _isAvailable = Boolean(("localStorage" in window) && window["localStorage"]);
 
@@ -22,7 +22,7 @@
         /** Used to determine if local storage available */
         public static get isAvailable(): boolean
         {
-            return Storage.isAvailable();
+            return LocalStorage.isAvailable();
         }
 
         /** @param appName Name of the application(optional) */
