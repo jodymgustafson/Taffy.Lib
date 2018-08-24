@@ -5,7 +5,7 @@ var Taffy;
      * A class for storing and manipulating an unsigned byte value (0 to 255)
      * Usage: import {Byte} from "./Byte";
      */
-    var Byte = (function () {
+    var Byte = /** @class */ (function () {
         /**
          * Create a new instance from a number.
          * If the number is too big or small to fit into a byte it will be truncated and the overflow flag set.
@@ -47,10 +47,10 @@ var Taffy;
         Byte.isByte = function (b) {
             return b >= Byte.MIN_VALUE && b <= Byte.MAX_VALUE;
         };
+        Byte.MIN_VALUE = 0;
+        Byte.MAX_VALUE = 255;
         return Byte;
     }());
-    Byte.MIN_VALUE = 0;
-    Byte.MAX_VALUE = 255;
     Taffy.Byte = Byte;
 })(Taffy || (Taffy = {}));
 var __extends = (this && this.__extends) || (function () {
@@ -70,7 +70,7 @@ var Taffy;
      * An immutable color object
      * Usage: import {Color} from "./Color";
      */
-    var Color = (function () {
+    var Color = /** @class */ (function () {
         function Color(sOrRed, g, b, a) {
             this.reHex = /^#?([\da-f]{3}|[\da-f]{6})$/i;
             this.reRgb = /^rgb\s*\(\s*(\d{0,3})\s*,\s*(\d{0,3})\s*,\s*(\d{0,3})\s*\)$/i;
@@ -215,7 +215,7 @@ var Taffy;
     /**
      * A mutable color object
      */
-    var MutableColor = (function (_super) {
+    var MutableColor = /** @class */ (function (_super) {
         __extends(MutableColor, _super);
         function MutableColor() {
             return _super !== null && _super.apply(this, arguments) || this;
@@ -321,7 +321,7 @@ var Taffy;
     * Defines a wrapper for a Json file that includes info about the file as
     * well as the data to be saved stored in the data property.
     */
-    var JsonFile = (function () {
+    var JsonFile = /** @class */ (function () {
         function JsonFile(fileType, data) {
             this.fileType = fileType;
             this.data = data;
@@ -400,7 +400,7 @@ var Taffy;
     /**
     * Implements a typed map where the key is a string
     */
-    var Map = (function () {
+    var Map = /** @class */ (function () {
         function Map() {
             this._map = {};
         }
@@ -488,7 +488,7 @@ var Taffy;
 var Taffy;
 (function (Taffy) {
     "use strict";
-    var Rectangle = (function () {
+    var Rectangle = /** @class */ (function () {
         function Rectangle(x, y, w, h) {
             if (x === void 0) { x = 0; }
             if (y === void 0) { y = 0; }
@@ -636,7 +636,7 @@ var Taffy;
     /**
     * Wrapper for localstorage that optionally prefixes all keys with the app name
     */
-    var AppStorage = (function () {
+    var AppStorage = /** @class */ (function () {
         /** @param appName Name of the application(optional) */
         function AppStorage(appName) {
             this._prefix = "";
@@ -748,7 +748,7 @@ var Taffy;
 var Taffy;
 (function (Taffy) {
     "use strict";
-    var AppStorageAsync = (function () {
+    var AppStorageAsync = /** @class */ (function () {
         /** @param appName Name of the application(optional) */
         function AppStorageAsync(appName) {
             this._prefix = "";
@@ -907,7 +907,7 @@ var Taffy;
     /**
      * Wrapper and high level drawing methods for HTMLCanvasElement 2D context
      */
-    var CanvasContext2D = (function () {
+    var CanvasContext2D = /** @class */ (function () {
         function CanvasContext2D(_canvas) {
             this._canvas = _canvas;
             this._context = _canvas.getContext("2d");
@@ -1562,61 +1562,61 @@ var Taffy;
         CanvasContext2D.toRadians = function (degrees) {
             return CanvasContext2D.PI_OVER_180 * degrees;
         };
+        ///////////////////////////////////////////////////////////////////////////////
+        // Constants
+        ///////////////////////////////////////////////////////////////////////////////
+        CanvasContext2D.PI_OVER_180 = Math.PI / 180;
+        CanvasContext2D.PI_OVER_2 = Math.PI / 2;
+        CanvasContext2D.TWO_PI = 2 * Math.PI;
+        CanvasContext2D.TAU = 2 * Math.PI;
+        ///////////////////////////////////////////////////////////////////////////
+        // Enums
+        ///////////////////////////////////////////////////////////////////////////
+        CanvasContext2D.TextBaseline = {
+            top: "top",
+            middle: "middle",
+            bottom: "bottom",
+            alphabetic: "alphabetic",
+            hanging: "hanging"
+        };
+        CanvasContext2D.TextAlign = {
+            left: "left",
+            right: "right",
+            center: "center",
+            start: "start",
+            end: "end"
+        };
+        CanvasContext2D.Repetition = {
+            repeat: "repeat",
+            repeatX: "repeat-x",
+            repeatY: "repeat-y",
+            noRepeat: "no-repeat"
+        };
+        CanvasContext2D.CompositeOperation = {
+            sourceOver: "source-over",
+            sourceAtop: "source-atop",
+            sourceIn: "source-in",
+            sourceOut: "source-out",
+            destinationOver: "destination-over",
+            destinationAtop: "destination-atop",
+            destinationIn: "destination-in",
+            destinationOut: "destination-out",
+            lighter: "lighter",
+            copy: "copy",
+            xor: "xor"
+        };
+        CanvasContext2D.LineCap = {
+            butt: "butt",
+            round: "round",
+            square: "square"
+        };
+        CanvasContext2D.LineJoin = {
+            bevel: "bevel",
+            round: "round",
+            miter: "miter"
+        };
         return CanvasContext2D;
     }());
-    ///////////////////////////////////////////////////////////////////////////////
-    // Constants
-    ///////////////////////////////////////////////////////////////////////////////
-    CanvasContext2D.PI_OVER_180 = Math.PI / 180;
-    CanvasContext2D.PI_OVER_2 = Math.PI / 2;
-    CanvasContext2D.TWO_PI = 2 * Math.PI;
-    CanvasContext2D.TAU = 2 * Math.PI;
-    ///////////////////////////////////////////////////////////////////////////
-    // Enums
-    ///////////////////////////////////////////////////////////////////////////
-    CanvasContext2D.TextBaseline = {
-        top: "top",
-        middle: "middle",
-        bottom: "bottom",
-        alphabetic: "alphabetic",
-        hanging: "hanging"
-    };
-    CanvasContext2D.TextAlign = {
-        left: "left",
-        right: "right",
-        center: "center",
-        start: "start",
-        end: "end"
-    };
-    CanvasContext2D.Repetition = {
-        repeat: "repeat",
-        repeatX: "repeat-x",
-        repeatY: "repeat-y",
-        noRepeat: "no-repeat"
-    };
-    CanvasContext2D.CompositeOperation = {
-        sourceOver: "source-over",
-        sourceAtop: "source-atop",
-        sourceIn: "source-in",
-        sourceOut: "source-out",
-        destinationOver: "destination-over",
-        destinationAtop: "destination-atop",
-        destinationIn: "destination-in",
-        destinationOut: "destination-out",
-        lighter: "lighter",
-        copy: "copy",
-        xor: "xor"
-    };
-    CanvasContext2D.LineCap = {
-        butt: "butt",
-        round: "round",
-        square: "square"
-    };
-    CanvasContext2D.LineJoin = {
-        bevel: "bevel",
-        round: "round",
-        miter: "miter"
-    };
     Taffy.CanvasContext2D = CanvasContext2D;
 })(Taffy || (Taffy = {}));
 ///<reference path='../core/keycodes.ts'/>
@@ -1626,7 +1626,7 @@ var Taffy;
     "use strict";
     var Events;
     (function (Events) {
-        var ElementEvent = (function () {
+        var ElementEvent = /** @class */ (function () {
             function ElementEvent(element, baseEvent) {
                 this.element = element;
                 this.baseEvent = baseEvent;
@@ -1636,8 +1636,32 @@ var Taffy;
             return ElementEvent;
         }());
         Events.ElementEvent = ElementEvent;
+        /** Wraps a pointer event to provide element based positions */
+        var ElementPointerEvent = /** @class */ (function (_super) {
+            __extends(ElementPointerEvent, _super);
+            /**
+             * @param element The element the event ocurred on
+             * @param event The mouse event
+             */
+            function ElementPointerEvent(element, event) {
+                var _this = _super.call(this, element, event) || this;
+                var pos = getElementPosition(element);
+                _this.elementX = event.pageX - pos.left;
+                _this.elementY = event.pageY - pos.top;
+                return _this;
+            }
+            Object.defineProperty(ElementPointerEvent.prototype, "isPrimary", {
+                get: function () {
+                    return this.baseEvent.isPrimary;
+                },
+                enumerable: true,
+                configurable: true
+            });
+            return ElementPointerEvent;
+        }(ElementEvent));
+        Events.ElementPointerEvent = ElementPointerEvent;
         /** Wraps a mouse event to provide element based positions */
-        var ElementMouseEvent = (function (_super) {
+        var ElementMouseEvent = /** @class */ (function (_super) {
             __extends(ElementMouseEvent, _super);
             /**
              * @param element The element the event ocurred on
@@ -1654,7 +1678,7 @@ var Taffy;
         }(ElementEvent));
         Events.ElementMouseEvent = ElementMouseEvent;
         /** Wraps a touch event to provide element based positions */
-        var ElementTouchEvent = (function (_super) {
+        var ElementTouchEvent = /** @class */ (function (_super) {
             __extends(ElementTouchEvent, _super);
             /**
              * @param element The element the event ocurred on
@@ -1686,7 +1710,7 @@ var Taffy;
         }(ElementEvent));
         Events.ElementTouchEvent = ElementTouchEvent;
         /** Wraps a keyboard event to provide key code */
-        var ElementKeyboardEvent = (function (_super) {
+        var ElementKeyboardEvent = /** @class */ (function (_super) {
             __extends(ElementKeyboardEvent, _super);
             function ElementKeyboardEvent(element, event) {
                 return _super.call(this, element, event) || this;
@@ -1721,6 +1745,34 @@ var Taffy;
             return addMouseEventListener("dblclick", element, callback, useCapture);
         }
         Events.onDblClick = onDblClick;
+        /////////////////////////////////////////////////////////////////////////
+        // Pointer///////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////
+        /** Adds a mousedown event handler */
+        function onPointerDown(element, callback, useCapture) {
+            return addPointerEventListener("pointerdown", element, callback, useCapture);
+        }
+        Events.onPointerDown = onPointerDown;
+        /** Adds a mouseup event handler */
+        function onPointerUp(element, callback, useCapture) {
+            return addPointerEventListener("pointerup", element, callback, useCapture);
+        }
+        Events.onPointerUp = onPointerUp;
+        /** Adds a mousemove event handler */
+        function onPointerMove(element, callback, useCapture) {
+            return addPointerEventListener("pointermove", element, callback, useCapture);
+        }
+        Events.onPointerMove = onPointerMove;
+        /** Adds a mouseout event handler */
+        function onPointerOut(element, callback, useCapture) {
+            return addPointerEventListener("pointerout", element, callback, useCapture);
+        }
+        Events.onPointerOut = onPointerOut;
+        /** Adds a mouseover event handler */
+        function onPointerOver(element, callback, useCapture) {
+            return addPointerEventListener("pointerover", element, callback, useCapture);
+        }
+        Events.onPointerOver = onPointerOver;
         /////////////////////////////////////////////////////////////////////////
         // Mouse ///////////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////////////
@@ -1809,6 +1861,11 @@ var Taffy;
                 left: rect.left + window.pageXOffset,
                 top: rect.top + window.pageYOffset
             };
+        }
+        /** Adds a pointer event handler */
+        function addPointerEventListener(eventName, element, callback, useCapture) {
+            element.addEventListener(eventName, function (evt) { return callback(new ElementPointerEvent(element, evt)); }, useCapture);
+            return element;
         }
         /** Adds a mouse event handler */
         function addMouseEventListener(eventName, element, callback, useCapture) {

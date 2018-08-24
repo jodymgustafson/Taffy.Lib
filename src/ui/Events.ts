@@ -27,6 +27,28 @@ namespace Taffy
             public preventDefault(): ElementEvent<T> { this.baseEvent.preventDefault(); return this; }
         }
 
+        /** Wraps a pointer event to provide element based positions */
+        export class ElementPointerEvent extends ElementEvent<PointerEvent>
+        {
+            /**
+             * @param element The element the event ocurred on
+             * @param event The mouse event
+             */
+            constructor(element: HTMLElement, event: PointerEvent)
+            {
+                super(element, event);
+
+                let pos = getElementPosition(element);
+                this.elementX = event.pageX - pos.left;
+                this.elementY = event.pageY - pos.top;
+            }
+
+            public get isPrimary(): boolean
+            {
+                return this.baseEvent.isPrimary;
+            }
+        }
+
         /** Wraps a mouse event to provide element based positions */
         export class ElementMouseEvent extends ElementEvent<MouseEvent>
         {
@@ -118,6 +140,40 @@ namespace Taffy
         export function onDblClick(element: HTMLElement, callback: (evt: ElementMouseEvent) => any, useCapture?: boolean): HTMLElement
         {
             return addMouseEventListener("dblclick", element, callback, useCapture);
+        }
+
+        /////////////////////////////////////////////////////////////////////////
+        // Pointer///////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////
+
+        /** Adds a mousedown event handler */
+        export function onPointerDown(element: HTMLElement, callback: (evt: ElementPointerEvent) => any, useCapture?: boolean): HTMLElement
+        {
+            return addPointerEventListener("pointerdown", element, callback, useCapture);
+        }
+
+        /** Adds a mouseup event handler */
+        export function onPointerUp(element: HTMLElement, callback: (e: ElementPointerEvent) => any, useCapture?: boolean): HTMLElement
+        {
+            return addPointerEventListener("pointerup", element, callback, useCapture);
+        }
+
+        /** Adds a mousemove event handler */
+        export function onPointerMove(element: HTMLElement, callback: (evt: ElementPointerEvent) => any, useCapture?: boolean): HTMLElement
+        {
+            return addPointerEventListener("pointermove", element, callback, useCapture);
+        }
+
+        /** Adds a mouseout event handler */
+        export function onPointerOut(element: HTMLElement, callback: (evt: ElementPointerEvent) => any, useCapture?: boolean): HTMLElement
+        {
+            return addPointerEventListener("pointerout", element, callback, useCapture);
+        }
+
+        /** Adds a mouseover event handler */
+        export function onPointerOver(element: HTMLElement, callback: (evt: ElementPointerEvent) => any, useCapture?: boolean): HTMLElement
+        {
+            return addPointerEventListener("pointerover", element, callback, useCapture);
         }
 
         /////////////////////////////////////////////////////////////////////////
@@ -224,6 +280,13 @@ namespace Taffy
                 left: rect.left + window.pageXOffset,
                 top: rect.top + window.pageYOffset
             };
+        }
+
+        /** Adds a pointer event handler */
+        function addPointerEventListener(eventName: string, element: HTMLElement, callback: (evt: ElementPointerEvent) => any, useCapture?: boolean): HTMLElement
+        {
+            element.addEventListener(eventName, (evt: PointerEvent) => callback(new ElementPointerEvent(element, evt)), useCapture);
+            return element;
         }
 
         /** Adds a mouse event handler */

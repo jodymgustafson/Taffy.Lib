@@ -844,6 +844,15 @@ declare namespace Taffy {
             stopPropagation(): ElementEvent<T>;
             preventDefault(): ElementEvent<T>;
         }
+        /** Wraps a pointer event to provide element based positions */
+        class ElementPointerEvent extends ElementEvent<PointerEvent> {
+            /**
+             * @param element The element the event ocurred on
+             * @param event The mouse event
+             */
+            constructor(element: HTMLElement, event: PointerEvent);
+            readonly isPrimary: boolean;
+        }
         /** Wraps a mouse event to provide element based positions */
         class ElementMouseEvent extends ElementEvent<MouseEvent> {
             /**
@@ -876,6 +885,16 @@ declare namespace Taffy {
         function onClick(element: HTMLElement, callback: (evt: ElementMouseEvent) => any, useCapture?: boolean): HTMLElement;
         /** Adds a dblclick event handler */
         function onDblClick(element: HTMLElement, callback: (evt: ElementMouseEvent) => any, useCapture?: boolean): HTMLElement;
+        /** Adds a mousedown event handler */
+        function onPointerDown(element: HTMLElement, callback: (evt: ElementPointerEvent) => any, useCapture?: boolean): HTMLElement;
+        /** Adds a mouseup event handler */
+        function onPointerUp(element: HTMLElement, callback: (e: ElementPointerEvent) => any, useCapture?: boolean): HTMLElement;
+        /** Adds a mousemove event handler */
+        function onPointerMove(element: HTMLElement, callback: (evt: ElementPointerEvent) => any, useCapture?: boolean): HTMLElement;
+        /** Adds a mouseout event handler */
+        function onPointerOut(element: HTMLElement, callback: (evt: ElementPointerEvent) => any, useCapture?: boolean): HTMLElement;
+        /** Adds a mouseover event handler */
+        function onPointerOver(element: HTMLElement, callback: (evt: ElementPointerEvent) => any, useCapture?: boolean): HTMLElement;
         /** Adds a mousedown event handler */
         function onMouseDown(element: HTMLElement, callback: (evt: ElementMouseEvent) => any, useCapture?: boolean): HTMLElement;
         /** Adds a mouseup event handler */
